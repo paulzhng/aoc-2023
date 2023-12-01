@@ -1,9 +1,10 @@
 [package]
-name = "aoc-2023-common"
+name = "aoc-day-1"
 authors = ["Paul Zhang <me@paul-zhang.de>"]
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-color-eyre = "0.6.2"
+aoc-2023-common = { path = "../common" }
+
 eyre = "0.6.9"
