@@ -108,9 +108,9 @@ impl CubeSet {
 }
 
 fn calculate_result(input: &str, puzzle_part: PuzzlePart) -> eyre::Result<u32> {
-    let gmaes = parse_input(input)?;
+    let games = parse_input(input)?;
     let sum = match puzzle_part {
-        PuzzlePart::One => gmaes
+        PuzzlePart::One => games
             .iter()
             .filter(|game| {
                 game.cube_sets.iter().all(|cube_set| {
@@ -119,7 +119,7 @@ fn calculate_result(input: &str, puzzle_part: PuzzlePart) -> eyre::Result<u32> {
             })
             .map(|game| game.id)
             .sum(),
-        PuzzlePart::Two => gmaes
+        PuzzlePart::Two => games
             .iter()
             .map(|game| {
                 game.cube_sets
