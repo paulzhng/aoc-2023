@@ -93,6 +93,18 @@ impl CubeSet {
             blue: 0,
         }
     }
+
+    pub fn componentwise_max(self, rhs: CubeSet) -> CubeSet {
+        Self {
+            red: self.red.max(rhs.red),
+            green: self.green.max(rhs.green),
+            blue: self.blue.max(rhs.blue),
+        }
+    }
+
+    pub fn power(self) -> u32 {
+        self.red * self.green * self.blue
+    }
 }
 
 fn calculate_result(input: &str, puzzle_part: PuzzlePart) -> eyre::Result<u32> {
@@ -112,13 +124,10 @@ fn calculate_result(input: &str, puzzle_part: PuzzlePart) -> eyre::Result<u32> {
             .map(|game| {
                 game.cube_sets
                     .iter()
-                    .fold(CubeSet::empty(), |acc, cube_set| CubeSet {
-                        red: acc.red.max(cube_set.red),
-                        green: acc.green.max(cube_set.green),
-                        blue: acc.blue.max(cube_set.blue),
-                    })
+                    .copied()
+                    .fold(CubeSet::empty(), CubeSet::componentwise_max)
             })
-            .map(|cube_set| cube_set.red * cube_set.green * cube_set.blue)
+            .map(CubeSet::power)
             .sum(),
     };
 
