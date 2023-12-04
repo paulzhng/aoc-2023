@@ -31,7 +31,7 @@ impl FromStr for Game {
     type Err = eyre::Error;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        const GAME_REGEX: Lazy<Regex> =
+        static GAME_REGEX: Lazy<Regex> =
             Lazy::new(|| Regex::new(r"Game (?<game_id>\d+): (?<cube_sets>.+)").unwrap());
         let game_captures = GAME_REGEX
             .captures(s)
