@@ -1,0 +1,12 @@
+[package]
+name = "aoc-day-5"
+authors = ["Paul Zhang <me@paul-zhang.de>"]
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+aoc-2023-common = { path = "../common" }
+
+eyre = "0.6.9"
+regex = "1.10.2"
+once_cell = "1.18.0"
