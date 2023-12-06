@@ -44,11 +44,6 @@ struct Almanac {
     conversions: HashMap<Category, Vec<Mapping>>,
 }
 
-#[derive(Clone, Debug, PartialEq, Eq)]
-struct OptimizedConversions {
-    mappings: Vec<Mapping>,
-}
-
 impl Almanac {
     pub fn convert_seed_to_location(&self, seed_number: u64) -> Option<u64> {
         let mut category = Category::Seed;
