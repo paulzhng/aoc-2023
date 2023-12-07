@@ -66,7 +66,7 @@ fn parse_input_part_1(input: &str) -> eyre::Result<Vec<Race>> {
     let record_line = lines.next().wrap_err("record line does not exist")?;
 
     fn line_iter(line: &str) -> impl Iterator<Item = eyre::Result<u64>> + '_ {
-        line.split(" ")
+        line.split(' ')
             .skip(1)
             .filter(|s| !s.is_empty())
             .map(u64::from_str)
@@ -90,7 +90,7 @@ fn parse_input_part_2(input: &str) -> eyre::Result<Race> {
     let record_line = lines.next().wrap_err("record line does not exist")?;
 
     let parse_line = |line: &str| {
-        line.splitn(2, " ")
+        line.splitn(2, ' ')
             .skip(1)
             .filter(|s| !s.is_empty())
             .flat_map(|str| str.chars())

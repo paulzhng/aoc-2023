@@ -65,7 +65,7 @@ impl FromStr for CubeSet {
         let cube_set = s
             .split(", ")
             .filter_map(|color_and_amount| {
-                let mut split = color_and_amount.split(" ");
+                let mut split = color_and_amount.split(' ');
                 Some((
                     split.next()?.parse::<u32>().ok()?,
                     split.next()?.to_string(),

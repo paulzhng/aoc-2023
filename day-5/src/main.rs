@@ -104,13 +104,14 @@ impl FromStr for Almanac {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let mut lines = s.lines();
 
-        let seeds = lines
+        let (_, seeds_str) = lines
             .next()
             .wrap_err("expect seeds string")?
-            .splitn(2, " ")
-            .nth(1)
-            .wrap_err("invalid format for seeds string")?
-            .split(" ")
+            .split_once(' ')
+            .wrap_err("invalid format for seeds string")?;
+
+        let seeds = seeds_str
+            .split(' ')
             .map(u64::from_str)
             .map(|res| res.wrap_err("failed to parse seed number"))
             .collect::<eyre::Result<Vec<_>>>()?;
@@ -120,13 +121,9 @@ impl FromStr for Almanac {
         static CONVERSION_REGEX: Lazy<Regex> =
             Lazy::new(|| Regex::new(r"(?<destination>\d+) (?<source>\d+) (?<len>\d+)").unwrap());
 
-        let (_, conversions) = lines.filter(|line| !line.trim().is_empty()).fold(
-            Ok((None, HashMap::new())),
-            |acc, line| {
-                let Ok((cur_source, mut conversions)) = acc else {
-                    return acc;
-                };
-
+        let (_, conversions) = lines.filter(|line| !line.trim().is_empty()).try_fold(
+            (None, HashMap::new()),
+            |(cur_source, mut conversions), line| {
                 if let Some(heading_captures) = CONVERSION_HEADING_REGEX.captures(line) {
                     let source_category: Category = heading_captures
                         .name("source")

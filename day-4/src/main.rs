@@ -49,14 +49,14 @@ impl FromStr for Card {
         let card_id = usize::from_str(card_id_match.as_str())?;
         let winning_numbers = winning_numbers_match
             .as_str()
-            .split(" ")
+            .split(' ')
             .filter(|str| !str.is_empty())
             .map(u32::from_str)
             .map(|res| res.wrap_err("invalid number"))
             .collect::<eyre::Result<HashSet<_>>>()?;
         let guessed_numbers = guessed_numbers_match
             .as_str()
-            .split(" ")
+            .split(' ')
             .filter(|str| !str.is_empty())
             .map(u32::from_str)
             .map(|res| res.wrap_err("invalid number"))
